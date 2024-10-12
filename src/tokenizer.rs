@@ -166,7 +166,12 @@ pub fn tokenize(input: &str, file_name: &str) -> Result<LinkedList<Token>, Strin
 
                     i += 1;
                 } else {
-                    return Err(format!("{}:{} Unexpected charater '{}'", file_name.to_string(), line, c.to_string()));
+                    return Err(format!(
+                        "{}:{} Unexpected charater '{}'",
+                        file_name.to_string(),
+                        line,
+                        c.to_string()
+                    ));
                 };
             }
 
@@ -261,7 +266,11 @@ pub fn tokenize(input: &str, file_name: &str) -> Result<LinkedList<Token>, Strin
 
                     i += string_literal.len() + 1;
                 } else {
-                    return Err(format!("{}:{} Unterminated string", file_name.to_string(), line));
+                    return Err(format!(
+                        "{}:{} Unterminated string",
+                        file_name.to_string(),
+                        line
+                    ));
                 }
             }
 
@@ -271,7 +280,12 @@ pub fn tokenize(input: &str, file_name: &str) -> Result<LinkedList<Token>, Strin
             ' ' | '\r' | '\t' => {}
 
             _ => {
-                return Err(format!("{}:{} Unexpected charater '{}'", file_name.to_string(), line, c.to_string()));
+                return Err(format!(
+                    "{}:{} Unexpected charater '{}'",
+                    file_name.to_string(),
+                    line,
+                    c.to_string()
+                ));
             }
         };
         i += 1;
