@@ -1,11 +1,10 @@
 use std::{env, process::exit};
-
-use tokenizer::tokenize;
 mod tokenizer;
 
 fn repl() {
     let stdin = std::io::stdin();
     let mut line = String::new();
+    let mut tokenizer = tokenizer::Tokenizer::new();
 
     loop {
         let wow = stdin.read_line(&mut line);
@@ -14,7 +13,8 @@ fn repl() {
                 if line_size == 0 {
                     break;
                 }
-                let tokens = tokenize(&line[..], "repl");
+                let tokens = tokenizer.tokenize(&line[..], "repl");
+                tokenizer.reset();
                 dbg!(&tokens);
             }
             Err(_err) => {
@@ -35,7 +35,8 @@ fn main() {
         // Input file provided
         2 => {
             let input = std::fs::read_to_string(&args[1]).expect("faillure reading input file");
-            let tokens = tokenizer::tokenize(&input, &args[1]);
+            let mut tokenizer = tokenizer::Tokenizer::new();
+            let tokens = tokenizer.tokenize(&input, &args[1]);
             dbg!(&tokens);
         }
 
