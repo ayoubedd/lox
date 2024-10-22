@@ -1,12 +1,15 @@
-use std::{env, process::exit};
+use std::{env, io::Write, process::exit};
 mod tokenizer;
 
 fn repl() {
     let stdin = std::io::stdin();
     let mut line = String::new();
     let mut tokenizer = tokenizer::Tokenizer::new();
+    let mut out = std::io::stdout();
 
     loop {
+        print!("=> ");
+        out.flush().unwrap();
         let wow = stdin.read_line(&mut line);
         match wow {
             Ok(line_size) => {
